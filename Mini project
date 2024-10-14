@@ -26,14 +26,4 @@ data_cleaned = data[~((data < (Q1 - 1.5 * IQR)) | (data > (Q3 + 1.5 * IQR))).any
 data_cleaned.to_csv('cleaned_dataset.csv', index=False)
 print("Data cleaning is complete. Cleaned dataset saved as 'cleaned_dataset.csv'")
 
-dataset.csv
-ID,Age,Salary,Department
-1,25,50000,IT
-2,30,60000,Sales
-3,,55000,IT
-4,40,70000,Marketing
-5,35,80000,Marketing
-6,28,,IT
-7,22,300000,Operations
-8,22,50000,Sales
-8,22,50000,Sales
+
