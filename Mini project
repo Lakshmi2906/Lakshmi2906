@@ -1,12 +1,39 @@
-- 👋 Hi, I’m @Lakshmi2906
-- 👀 I’m interested in ...
-- 🌱 I’m currently learning ...
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
+import pandas as pd
+import numpy as np
+# 1. Load the dataset
+# Replace 'your_dataset.csv' with your dataset path
+data = pd.read_csv('your_dataset.csv')
+# Display the first few rows of the dataset
+print("Original Dataset:")
+print(data.head())
+# 2. Handling missing values
+# Option 1: Fill missing numeric values with the mean of the column
+data.fillna(data.mean(), inplace=True)
+# Option 2: For categorical columns, you can fill missing values with mode
+# data['categorical_column'] = data['categorical_column'].fillna(data['categorical_column'].mode()[0])
+# 3. Remove duplicates
+data.drop_duplicates(inplace=True)
 
-<!---
-Lakshmi2906/Lakshmi2906 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+
+# 4. Handling outliers using the IQR method
+# Calculate Q1 (25th percentile) and Q3 (75th percentile) for numeric columns
+Q1 = data.quantile(0.25)
+Q3 = data.quantile(0.75)
+IQR = Q3 - Q1
+# Define a range for outliers and remove rows that fall outside this range
+data_cleaned = data[~((data < (Q1 - 1.5 * IQR)) | (data > (Q3 + 1.5 * IQR))).any(axis=1)]
+# 5. Save the cleaned dataset to a new CSV file
+data_cleaned.to_csv('cleaned_dataset.csv', index=False)
+print("Data cleaning is complete. Cleaned dataset saved as 'cleaned_dataset.csv'")
+
+dataset.csv
+ID,Age,Salary,Department
+1,25,50000,IT
+2,30,60000,Sales
+3,,55000,IT
+4,40,70000,Marketing
+5,35,80000,Marketing
+6,28,,IT
+7,22,300000,Operations
+8,22,50000,Sales
+8,22,50000,Sales
